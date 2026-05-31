@@ -25,25 +25,36 @@ if (file_exists($envFile)) {
                 $value = $matches[2];
             }
             
-            if (!array_key_exists($name, $_SERVER) && !array_key_exists($name, $_ENV)) {
-                putenv("{$name}={$value}");
-                $_ENV[$name] = $value;
-                $_SERVER[$name] = $value;
-            }
+            // Always populate local superglobals (crucial if putenv is blocked)
+            $_ENV[$name] = $value;
+            $_SERVER[$name] = $value;
+            @putenv("{$name}={$value}");
         }
     }
 }
 
+// Helper function to get environment variables securely (handles putenv restrictions)
+function get_env_config(string $key, $default = '') {
+    if (isset($_ENV[$key]) && $_ENV[$key] !== '') {
+        return $_ENV[$key];
+    }
+    if (isset($_SERVER[$key]) && $_SERVER[$key] !== '') {
+        return $_SERVER[$key];
+    }
+    $val = getenv($key);
+    return $val !== false ? $val : $default;
+}
+
 // Detect environment
-define('APP_ENV', getenv('APP_ENV') ?: 'development');
+define('APP_ENV', get_env_config('APP_ENV', 'development'));
 
 // Select active config based on environment variables
-define('DB_HOST',     getenv('DB_HOST') ?: 'localhost');
-define('DB_PORT',     (int)(getenv('DB_PORT') ?: 3306));
-define('DB_NAME',     getenv('DB_NAME') ?: 'jobsportal');
-define('DB_USERNAME', getenv('DB_USER') ?: 'root');
-define('DB_PASSWORD', getenv('DB_PASS') ?: '');
-define('DB_CHARSET',  getenv('DB_CHARSET') ?: 'utf8mb4');
+define('DB_HOST',     get_env_config('DB_HOST', 'localhost'));
+define('DB_PORT',     (int)get_env_config('DB_PORT', 3306));
+define('DB_NAME',     get_env_config('DB_NAME', 'jobsportal'));
+define('DB_USERNAME', get_env_config('DB_USER', 'root'));
+define('DB_PASSWORD', get_env_config('DB_PASS', ''));
+define('DB_CHARSET',  get_env_config('DB_CHARSET', 'utf8mb4'));
 
 define('DB_DSN', sprintf(
     'mysql:host=%s;port=%d;dbname=%s;charset=%s',
