@@ -1,0 +1,22 @@
+# Database/Environment Config
+.env
+
+# Uploads and User Media
+/uploads/*
+!/uploads/.gitkeep
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# OS Files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+.DS_Store

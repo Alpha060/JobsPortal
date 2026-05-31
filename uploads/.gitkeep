@@ -1,0 +1,5 @@
+# Uploads Directory
+This directory stores admin-uploaded files (images, PDFs).
+Files are organized in year/month subdirectories.
+
+DO NOT commit this directory's contents to version control.

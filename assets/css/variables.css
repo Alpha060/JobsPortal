@@ -1,0 +1,181 @@
+/* ============================================================
+   DESIGN TOKENS — JobsPortal Premium Modern Design System
+   Professional, minimalist, dynamic glassmorphism aesthetics
+   ============================================================ */
+
+:root {
+    /* ── Border Radius (Modern Soft) ── */
+    --radius-xs: 8px;
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 20px;
+    --radius-xl: 24px;
+    --radius-2xl: 32px;
+    --radius-full: 9999px;
+
+    /* ── Brand Primary (Vibrant Blue) ── */
+    --primary: #2563EB;         /* Blue 600 */
+    --primary-light: #60A5FA;   /* Blue 400 */
+    --primary-dark: #1D4ED8;    /* Blue 800 */
+    --primary-50: rgba(37, 99, 235, 0.05);
+    --primary-100: rgba(37, 99, 235, 0.1);
+    --primary-200: rgba(37, 99, 235, 0.2);
+
+    /* ── Accent System (Rich & Vibrant) ── */
+    --accent: #F43F5E;          /* Rose 500 */
+    --accent-light: #FB7185;
+    --success: #10B981;         /* Emerald */
+    --success-light: #34D399;
+    --danger: #E11D48;          /* Rose */
+    --danger-light: #FB7185;
+    --warning: #F59E0B;         /* Amber */
+    --warning-light: #FBBF24;
+    --info: #0EA5E9;            /* Sky */
+    --info-light: #38BDF8;
+
+    /* ── Vibrant Category Gradients ── */
+    --gradient-jobs: linear-gradient(135deg, #1D4ED8, #3B82F6);
+    --gradient-results: linear-gradient(135deg, #059669, #10B981);
+    --gradient-admit: linear-gradient(135deg, #EA580C, #F97316);
+    --gradient-answer: linear-gradient(135deg, #E11D48, #F43F5E);
+    --gradient-syllabus: linear-gradient(135deg, #0284C7, #0EA5E9);
+    --gradient-admission: linear-gradient(135deg, #1D4ED8, #60A5FA);
+
+    /* ── Dark Mode Colors (Deep, Premium Obsidian) ── */
+    --bg-body: #020617;         /* Slate 950 */
+    --bg-primary: #0F172A;      /* Slate 900 */
+    --bg-secondary: #1E293B;    /* Slate 800 */
+    --bg-tertiary: #334155;     /* Slate 700 */
+    --bg-card: rgba(15, 23, 42, 0.7);
+    --bg-card-hover: rgba(30, 41, 59, 0.8);
+    --bg-elevated: rgba(30, 41, 59, 0.75);
+
+    --text-primary: #F8FAFC;    /* Slate 50 */
+    --text-secondary: #CBD5E1;  /* Slate 300 */
+    --text-tertiary: #94A3B8;   /* Slate 400 */
+    --text-inverse: #020617;
+
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-color-hover: rgba(255, 255, 255, 0.15);
+    --border-color-active: rgba(96, 165, 250, 0.4);
+
+    --divider: rgba(255, 255, 255, 0.05);
+
+    /* ── Premium Glassmorphism ── */
+    --glass-bg: rgba(15, 23, 42, 0.65);
+    --glass-bg-hover: rgba(30, 41, 59, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --glass-blur: blur(16px);
+    --glass-saturate: saturate(180%);
+
+    /* ── Refined Shadows ── */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.6);
+    --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.7);
+    --shadow-glow: 0 0 24px rgba(37, 99, 235, 0.2);
+    --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+    /* ── Typography (Sleek & Geometric) ── */
+    --font-headings: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+    --font-mono: 'SFMono-Regular', Consolas, monospace;
+
+    --text-xs: 0.75rem;     /* 12px */
+    --text-sm: 0.875rem;    /* 14px */
+    --text-base: 1rem;      /* 16px */
+    --text-md: 1.125rem;    /* 18px */
+    --text-lg: 1.25rem;     /* 20px */
+    --text-xl: 1.5rem;      /* 24px */
+    --text-2xl: 1.875rem;   /* 30px */
+    --text-3xl: 2.25rem;    /* 36px */
+    --text-4xl: 3rem;       /* 48px */
+    --text-5xl: 3.75rem;    /* 60px */
+
+    --leading-tight: 1.15;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.7;
+
+    --weight-normal: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+
+    /* ── Spacing (Increased for minimalism) ── */
+    --space-1: 0.25rem;   /* 4px */
+    --space-2: 0.5rem;    /* 8px */
+    --space-3: 0.75rem;   /* 12px */
+    --space-4: 1rem;      /* 16px */
+    --space-5: 1.5rem;    /* 24px */
+    --space-6: 2rem;      /* 32px */
+    --space-8: 3rem;      /* 48px */
+    --space-10: 4rem;     /* 64px */
+    --space-12: 5rem;     /* 80px */
+
+    /* ── Layout ── */
+    --container-max: 1280px;
+    --container-narrow: 880px;
+    --sidebar-width: 280px;
+    --header-height: 72px;
+    --ticker-height: 40px;
+
+    /* ── Fluid Transitions ── */
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --duration-fast: 150ms;
+    --duration-base: 250ms;
+    --duration-slow: 400ms;
+
+    --transition-fast: var(--duration-fast) var(--ease-out);
+    --transition-base: var(--duration-base) var(--ease-out);
+    --transition-slow: var(--duration-slow) var(--ease-out);
+
+    /* ── Z-Index ── */
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-fixed: 300;
+    --z-modal-backdrop: 400;
+    --z-modal: 500;
+    --z-toast: 600;
+    --z-tooltip: 700;
+}
+
+/* ── Light Mode System (Clean & Crisp) ── */
+.light-mode {
+    --bg-body: #F8FAFC;         /* Slate 50 */
+    --bg-primary: #FFFFFF;      /* Pure white */
+    --bg-secondary: #F1F5F9;    /* Slate 100 */
+    --bg-tertiary: #E2E8F0;     /* Slate 200 */
+    --bg-card: rgba(255, 255, 255, 0.8);
+    --bg-card-hover: rgba(255, 255, 255, 0.95);
+    --bg-elevated: rgba(255, 255, 255, 0.9);
+
+    --text-primary: #0F172A;    /* Slate 900 */
+    --text-secondary: #475569;  /* Slate 600 */
+    --text-tertiary: #94A3B8;   /* Slate 400 */
+    --text-inverse: #FFFFFF;
+
+    --border-color: rgba(0, 0, 0, 0.06);
+    --border-color-hover: rgba(0, 0, 0, 0.12);
+    --border-color-active: rgba(37, 99, 235, 0.3);
+
+    --divider: rgba(0, 0, 0, 0.04);
+
+    --primary-light: #2563EB;    /* Deep Blue for contrast */
+    --success-light: #059669;    
+    --danger-light: #E11D48;     
+    --warning-light: #D97706;    
+    --info-light: #0284C7;       
+
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-bg-hover: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04);
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.08);
+    --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.1);
+    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 1);
+}
