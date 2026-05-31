@@ -43,10 +43,13 @@
         z-index: var(--z-fixed);
         transform: translateX(-100%);
         box-shadow: var(--shadow-lg);
+        visibility: hidden;
+        transition: transform var(--transition-base), visibility var(--transition-base);
     }
 
     .admin-sidebar.open {
         transform: translateX(0);
+        visibility: visible;
     }
 
     .admin-main {
@@ -101,12 +104,14 @@
         align-items: stretch;
         padding: var(--space-16) var(--space-4) var(--space-4);
         z-index: var(--z-fixed);
-        transition: right var(--transition-base);
+        transition: right var(--transition-base), visibility var(--transition-base);
         overflow-y: auto;
+        visibility: hidden;
     }
 
     .main-nav.open {
         right: 0;
+        visibility: visible;
     }
 
     .nav-link {
