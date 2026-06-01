@@ -9,7 +9,7 @@
 // ── Public Routes ──
 $router->get('/', [HomeController::class, 'index']);
 $router->get('/search', [SearchController::class, 'index']);
-$router->get('/api/updates', [HomeController::class, 'streamUpdates']);
+$router->get('/api/updates/check', [HomeController::class, 'checkUpdates']);
 
 // ── Admin Routes ──
 $router->get('/admin', function() { redirect(url('admin/dashboard')); });

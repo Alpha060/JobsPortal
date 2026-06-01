@@ -50,5 +50,14 @@ $router = new Router();
 // ── Load Routes ──
 require_once __DIR__ . '/config/routes.php';
 
+// ── Release Session Lock for Public GET Requests ──
+// Release the write lock on the session file immediately for normal public GET requests, 
+// allowing concurrent AJAX fetches and pre-fetches to process in parallel without blocking.
+if ($_SERVER['REQUEST_METHOD'] === 'GET' 
+    && !isset($_GET['lang']) 
+    && strpos($_SERVER['REQUEST_URI'] ?? '', '/admin') !== 0) {
+    session_write_close();
+}
+
 // ── Dispatch ──
 $router->dispatch();

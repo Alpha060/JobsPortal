@@ -6,11 +6,9 @@
 .glass-card {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
-    transition: all var(--transition-base);
+    transition: border-color var(--transition-base), background var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
 }
 
 .glass-card:hover {
@@ -37,7 +35,7 @@
     font-size: var(--text-sm);
     font-weight: var(--weight-semibold);
     border-radius: var(--radius-full);
-    transition: all var(--transition-fast);
+    transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
     cursor: pointer;
     border: none;
     line-height: 1.5;
@@ -274,7 +272,7 @@ a.btn-ghost:hover {
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-xs);
-    transition: all var(--transition-fast);
+    transition: border-color var(--transition-fast), color var(--transition-fast);
 }
 
 .tag:hover {
@@ -289,7 +287,7 @@ a.btn-ghost:hover {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    transition: all var(--transition-base);
+    transition: border-color var(--transition-base), background var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -354,7 +352,7 @@ a.btn-ghost:hover {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    transition: all var(--transition-base);
+    transition: border-color var(--transition-base), background var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
     text-decoration: none;
     color: var(--text-primary);
     position: relative;
@@ -570,7 +568,7 @@ a.btn-ghost:hover {
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
-    transition: all var(--transition-fast);
+    transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
     text-decoration: none;
 }
 
@@ -625,8 +623,7 @@ a.btn-ghost:hover {
 .modal-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.6);
     z-index: var(--z-modal-backdrop);
     animation: fadeIn var(--duration-fast) var(--ease-out);
     display: none;
@@ -754,7 +751,7 @@ a.btn-ghost:hover {
     border: none;
     border-bottom: 2px solid transparent;
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: color var(--transition-fast), border-color var(--transition-fast);
     white-space: nowrap;
 }
 

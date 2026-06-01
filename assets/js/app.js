@@ -13,57 +13,22 @@ document.addEventListener('DOMContentLoaded', () => {
     initRealtimeSSE();
 });
 
-/* ── Real-time SSE updates ── */
+/* ── Lightweight polling for updates (replaces SSE to avoid holding PHP processes) ── */
 function initRealtimeSSE() {
-    const lastTime = Math.floor(Date.now() / 1000);
-    const eventSource = new EventSource('/api/updates?last_time=' + lastTime);
+    let lastTime = Math.floor(Date.now() / 1000);
 
-    eventSource.addEventListener('update', (event) => {
-        try {
-            const data = JSON.parse(event.data);
-            console.log('Real-time update received:', data);
-
-            fetch(window.location.href)
-                .then(res => res.text())
-                .then(html => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-
-                    // Selectors to update dynamically on update trigger
-                    const selectors = [
-                        '.quick-tags-section', 
-                        '.section-featured', 
-                        '.section-silos', 
-                        '.section-trending', 
-                        '.ticker-content',
-                        '.posts-list', // for listing category pages
-                        '.sidebar-list' // for popular/trending widgets on details page
-                    ];
-                    
-                    selectors.forEach(selector => {
-                        const newEl = doc.querySelector(selector);
-                        const oldEl = document.querySelector(selector);
-                        if (newEl && oldEl) {
-                            oldEl.style.transition = 'opacity 0.3s ease';
-                            oldEl.style.opacity = '0';
-                            setTimeout(() => {
-                                oldEl.innerHTML = newEl.innerHTML;
-                                oldEl.style.opacity = '1';
-                                if (window.lucide) {
-                                    window.lucide.createIcons();
-                                }
-                            }, 300);
-                        }
-                    });
-                });
-        } catch (e) {
-            console.error('Error handling SSE update event', e);
-        }
-    });
-
-    eventSource.onerror = (e) => {
-        console.error('SSE Connection error, closing source.', e);
-    };
+    setInterval(() => {
+        fetch('/api/updates/check?last_time=' + lastTime)
+            .then(res => res.json())
+            .then(data => {
+                if (data.hasUpdate) {
+                    lastTime = data.timestamp;
+                    // Reload page content
+                    window.location.reload();
+                }
+            })
+            .catch(() => { /* silently ignore polling errors */ });
+    }, 60000); // Check every 60 seconds
 }
 
 /* ── Theme Toggle (Dark/Light) ── */

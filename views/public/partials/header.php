@@ -47,10 +47,9 @@
             </div>
         </div>
     </div>
+    <!-- Nav Overlay (mobile) -->
+    <div class="nav-overlay" id="navOverlay"></div>
 </header>
-
-<!-- Nav Overlay (mobile) -->
-<div class="nav-overlay" id="navOverlay"></div>
 
 <!-- Search Overlay -->
 <div class="search-overlay" id="searchOverlay">
