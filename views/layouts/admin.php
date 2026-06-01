@@ -150,6 +150,7 @@ $postStats = $postModel->getStats();
         </div>
         <div class="pw-modal-body">
             <form id="changePasswordForm" class="admin-form">
+                <?= csrf_field() ?>
                 <div class="form-group">
                     <label class="form-label">Current Password</label>
                     <div class="password-input-wrapper">

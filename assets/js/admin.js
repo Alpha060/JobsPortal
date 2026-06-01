@@ -314,10 +314,17 @@ function initChangePasswordModal() {
             body: formData
         })
         .then(response => {
-            if (!response.ok) {
-                throw new Error('Server returned error status: ' + response.status);
-            }
-            return response.json();
+            return response.json().then(data => {
+                if (!response.ok) {
+                    throw new Error(data.message || 'Server error occurred.');
+                }
+                return data;
+            }).catch(e => {
+                if (!response.ok) {
+                    throw new Error('Server returned error status: ' + response.status);
+                }
+                throw e;
+            });
         })
         .then(data => {
             submitBtn.disabled = false;
@@ -335,7 +342,7 @@ function initChangePasswordModal() {
         .catch(err => {
             submitBtn.disabled = false;
             submitBtn.innerText = 'Update Password';
-            showAlert('error', 'An error occurred. Please try again.');
+            showAlert('error', err.message || 'An error occurred. Please try again.');
             console.error('Error updating password:', err);
         });
     });
