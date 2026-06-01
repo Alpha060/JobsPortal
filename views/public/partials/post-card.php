@@ -14,7 +14,7 @@ $cardClass = isset($cardClass) ? $cardClass : '';
 <a href="<?= url($categorySlug . '/' . $post['slug']) ?>" class="post-card <?= $cardClass ?>"
    style="border-left: 3px solid <?= sanitize($categoryColor) ?>;">
     <div class="post-card-category" style="color: <?= sanitize($categoryColor) ?>; background: var(--bg-secondary);">
-        <i data-lucide="<?= sanitize($categoryIcon) ?>"></i>
+        <i data-lucide="<?= getCategoryIcon($categorySlug, $categoryIcon) ?>"></i>
     </div>
     <div class="post-card-body">
         <h3 class="post-card-title"><?= sanitize($lang->field($post, 'title')) ?></h3>

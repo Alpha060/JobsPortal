@@ -34,7 +34,7 @@ ob_start();
 
         <div class="page-header-inner animate-fade-in-up">
             <div class="page-header-icon" style="background: linear-gradient(135deg, <?= $category['gradient_from'] ?>22, <?= $category['gradient_to'] ?>22); display: flex; align-items: center; justify-content: center;">
-                <i data-lucide="<?= sanitize($category['icon']) ?>"></i>
+                <i data-lucide="<?= getCategoryIcon($category['slug'], $category['icon']) ?>"></i>
             </div>
             <div class="page-header-content">
                 <h1><?= sanitize($lang->field($category, 'name')) ?></h1>
@@ -81,7 +81,7 @@ ob_start();
                     <div class="sidebar-list">
                         <?php foreach ($mostViewed as $post): ?>
                         <a href="<?= url($post['category_slug'] . '/' . $post['slug']) ?>">
-                             <span class="nav-icon"><i data-lucide="<?= sanitize($post['category_icon']) ?>"></i></span>
+                             <span class="nav-icon"><i data-lucide="<?= getCategoryIcon($post['category_slug'], $post['category_icon']) ?>"></i></span>
                             <span style="flex:1;font-size:var(--text-sm);line-height:1.3;"><?= sanitize(truncate($lang->field($post, 'title'), 55)) ?></span>
                         </a>
                         <?php endforeach; ?>

@@ -1,5 +1,6 @@
 # Database/Environment Config
 .env
+/database/seeds/
 
 # Uploads and User Media
 /uploads/*

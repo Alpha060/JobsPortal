@@ -7,6 +7,14 @@
  * then dispatches the request to the appropriate controller action.
  */
 
+// ── Support Built-in PHP Web Server Static Files ──
+if (php_sapi_name() === 'cli-server') {
+    $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    if (is_file(__DIR__ . $path)) {
+        return false;
+    }
+}
+
 // ── Load Configuration ──
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/config/app.php';

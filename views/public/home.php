@@ -13,10 +13,8 @@ $featuredPosts = $postModel->getFeatured(8); // Increased to 8 for the grid layo
 $mostViewed = $postModel->getMostViewed(6);
 
 // Per-category latest (for silos)
-$categoryPosts = [];
-foreach ($categoriesWithCount as $cat) {
-    $categoryPosts[$cat['slug']] = $postModel->getLatestByCategory($cat['slug'], 10);
-}
+$categorySlugs = array_column($categoriesWithCount, 'slug');
+$categoryPosts = $postModel->getLatestForCategories($categorySlugs, 10);
 
 // Check if a post is new (within 48 hours)
 function isPostNew($createdAt) {

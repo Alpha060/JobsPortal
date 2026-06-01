@@ -157,6 +157,44 @@ class Post
     }
 
     /**
+     * Get latest posts for multiple categories in a single database roundtrip using UNION ALL
+     */
+    public function getLatestForCategories(array $categorySlugs, int $limit = 10): array
+    {
+        if (empty($categorySlugs)) {
+            return [];
+        }
+
+        $queries = [];
+        $params = [];
+
+        foreach ($categorySlugs as $slug) {
+            $queries[] = "(SELECT p.*, c.name_en AS category_name_en, c.name_hi AS category_name_hi,
+                                   c.slug AS category_slug, c.icon AS category_icon, c.color AS category_color
+                            FROM `posts` p
+                            JOIN `categories` c ON p.category_id = c.id
+                            WHERE c.slug = ? AND p.status = 'published' AND p.is_active = 1
+                            ORDER BY p.created_at DESC
+                            LIMIT " . (int)$limit . ")";
+            $params[] = $slug;
+        }
+
+        $sql = implode(" UNION ALL ", $queries);
+        
+        $rows = $this->db->fetchAll($sql, $params);
+
+        $grouped = [];
+        foreach ($categorySlugs as $slug) {
+            $grouped[$slug] = [];
+        }
+        foreach ($rows as $row) {
+            $grouped[$row['category_slug']][] = $row;
+        }
+
+        return $grouped;
+    }
+
+    /**
      * Get most viewed posts
      */
     public function getMostViewed(int $limit = 10): array

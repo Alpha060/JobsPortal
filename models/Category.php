@@ -5,6 +5,8 @@
 class Category
 {
     private Database $db;
+    private static array $cache = [];
+    private static ?array $countCache = null;
 
     public function __construct()
     {
@@ -14,10 +16,17 @@ class Category
     /** Get all active categories ordered by sort_order */
     public function getAll(bool $activeOnly = true): array
     {
+        $cacheKey = $activeOnly ? 'active' : 'all';
+        if (isset(self::$cache[$cacheKey])) {
+            return self::$cache[$cacheKey];
+        }
+
         $where = $activeOnly ? "WHERE is_active = 1" : "";
-        return $this->db->fetchAll(
+        $result = $this->db->fetchAll(
             "SELECT * FROM `categories` {$where} ORDER BY `sort_order` ASC"
         );
+        self::$cache[$cacheKey] = $result;
+        return $result;
     }
 
     /** Get a category by slug */
@@ -41,7 +50,11 @@ class Category
     /** Get all categories with their post count */
     public function getWithPostCount(): array
     {
-        return $this->db->fetchAll(
+        if (self::$countCache !== null) {
+            return self::$countCache;
+        }
+
+        self::$countCache = $this->db->fetchAll(
             "SELECT c.*, COUNT(p.id) AS post_count
              FROM `categories` c
              LEFT JOIN `posts` p ON c.id = p.category_id AND p.status = 'published' AND p.is_active = 1
@@ -49,11 +62,20 @@ class Category
              GROUP BY c.id
              ORDER BY c.sort_order ASC"
         );
+
+        return self::$countCache;
+    }
+
+    private function clearCache(): void
+    {
+        self::$cache = [];
+        self::$countCache = null;
     }
 
     /** Create a new category */
     public function create(array $data): int
     {
+        $this->clearCache();
         $id = $this->db->insert('categories', $data);
         triggerRealtimeUpdate();
         return $id;
@@ -62,6 +84,7 @@ class Category
     /** Update a category */
     public function update(int $id, array $data): int
     {
+        $this->clearCache();
         $result = $this->db->update('categories', $data, 'id = ?', [$id]);
         triggerRealtimeUpdate();
         return $result;
@@ -72,6 +95,7 @@ class Category
     {
         $postCount = $this->db->count('posts', 'category_id = ?', [$id]);
         if ($postCount > 0) return false;
+        $this->clearCache();
         $this->db->delete('categories', 'id = ?', [$id]);
         triggerRealtimeUpdate();
         return true;
@@ -80,6 +104,7 @@ class Category
     /** Toggle active status */
     public function toggleActive(int $id): void
     {
+        $this->clearCache();
         $this->db->query(
             "UPDATE `categories` SET `is_active` = NOT `is_active` WHERE `id` = ?",
             [$id]

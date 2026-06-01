@@ -148,7 +148,16 @@ ob_start();
             <div class="admin-card-body">
                 <div class="links-builder" id="datesBuilder">
                     <?php if (!empty($importantDates)): ?>
-                    <?php foreach ($importantDates as $event => $date): ?>
+                    <?php foreach ($importantDates as $key => $val): ?>
+                    <?php 
+                    if (is_array($val)) {
+                        $event = $val['label'] ?? $val['event'] ?? $key;
+                        $date = $val['date'] ?? $val['value'] ?? '';
+                    } else {
+                        $event = $key;
+                        $date = $val;
+                    }
+                    ?>
                     <div class="link-row">
                         <input type="text" name="date_label[]" class="form-input" value="<?= sanitize($event) ?>">
                         <input type="text" name="date_value[]" class="form-input" value="<?= sanitize($date) ?>">
@@ -175,7 +184,16 @@ ob_start();
             <div class="admin-card-body">
                 <div class="links-builder" id="linksBuilder">
                     <?php if (!empty($importantLinks)): ?>
-                    <?php foreach ($importantLinks as $label => $linkUrl): ?>
+                    <?php foreach ($importantLinks as $key => $val): ?>
+                    <?php 
+                    if (is_array($val)) {
+                        $label = $val['label'] ?? $key;
+                        $linkUrl = $val['url'] ?? $val['link'] ?? '';
+                    } else {
+                        $label = $key;
+                        $linkUrl = $val;
+                    }
+                    ?>
                     <div class="link-row">
                         <input type="text" name="link_label[]" class="form-input" value="<?= sanitize($label) ?>">
                         <input type="url" name="link_url[]" class="form-input" value="<?= sanitize($linkUrl) ?>">

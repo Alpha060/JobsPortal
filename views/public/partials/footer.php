@@ -45,7 +45,7 @@
                 <div class="footer-links">
                     <?php foreach ($categories as $cat): ?>
                     <a href="<?= url($cat['slug']) ?>" style="display: inline-flex; align-items: center; gap: 6px;">
-                        <i data-lucide="<?= sanitize($cat['icon']) ?>" style="width: 14px; height: 14px;"></i> <?= sanitize($lang->field($cat, 'name')) ?>
+                        <i data-lucide="<?= getCategoryIcon($cat['slug'], $cat['icon']) ?>" style="width: 14px; height: 14px;"></i> <?= sanitize($lang->field($cat, 'name')) ?>
                     </a>
                     <?php endforeach; ?>
                 </div>

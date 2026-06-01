@@ -20,6 +20,10 @@ if (file_exists($envFile)) {
             $name = trim($name);
             $value = trim($value);
             
+            // Strip inline comments (e.g. # comment)
+            $value = preg_replace('/\s+#.*$/', '', $value);
+            $value = trim($value);
+            
             // Remove optional surrounding quotes
             if (preg_match('/^([\'"])(.*)\1$/', $value, $matches)) {
                 $value = $matches[2];

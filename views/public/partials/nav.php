@@ -12,7 +12,7 @@
     <?php foreach ($categories as $cat): ?>
     <a href="<?= url($cat['slug']) ?>"
        class="nav-link <?= isActivePath('/' . $cat['slug']) ? 'active' : '' ?>">
-        <span class="nav-icon"><i data-lucide="<?= sanitize($cat['icon']) ?>"></i></span>
+        <span class="nav-icon"><i data-lucide="<?= getCategoryIcon($cat['slug'], $cat['icon']) ?>"></i></span>
         <?= sanitize($lang->field($cat, 'name')) ?>
     </a>
     <?php endforeach; ?>

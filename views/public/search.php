@@ -74,7 +74,7 @@ ob_start();
                         $mostViewed = $postModel->getMostViewed(5);
                         foreach ($mostViewed as $mvPost): ?>
                         <a href="<?= url($mvPost['category_slug'] . '/' . $mvPost['slug']) ?>">
-                            <span class="nav-icon"><i data-lucide="<?= sanitize($mvPost['category_icon']) ?>"></i></span>
+                            <span class="nav-icon"><i data-lucide="<?= getCategoryIcon($mvPost['category_slug'], $mvPost['category_icon']) ?>"></i></span>
                             <span style="flex:1;font-size:var(--text-sm);line-height:1.3;"><?= sanitize(truncate($lang->field($mvPost, 'title'), 55)) ?></span>
                             <span class="count"><?= formatNumber($mvPost['views']) ?></span>
                         </a>

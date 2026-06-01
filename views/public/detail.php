@@ -38,7 +38,7 @@ ob_start();
                     <header class="post-detail-header">
                         <div class="post-detail-badges">
                             <span class="badge" style="background: <?= $post['category_color'] ?? '#6366F1' ?>20; color: <?= $post['category_color'] ?? '#6366F1' ?>;">
-                                <i data-lucide="<?= sanitize($post['category_icon']) ?>"></i> <?= sanitize($lang->field($post, 'category_name')) ?>
+                                <i data-lucide="<?= getCategoryIcon($post['category_slug'], $post['category_icon']) ?>"></i> <?= sanitize($lang->field($post, 'category_name')) ?>
                             </span>
                             <?php if ($post['is_featured']): ?>
                             <span class="badge badge-warning"><i data-lucide="star"></i> <?= __('featured_posts') ?></span>
@@ -144,7 +144,16 @@ ob_start();
                             </div>
                             <?php endif; ?>
 
-                            <?php foreach ($importantDates as $event => $date): ?>
+                            <?php foreach ($importantDates as $key => $val): ?>
+                            <?php 
+                            if (is_array($val)) {
+                                $event = $val['label'] ?? $val['event'] ?? $key;
+                                $date = $val['date'] ?? $val['value'] ?? '';
+                            } else {
+                                $event = $key;
+                                $date = $val;
+                            }
+                            ?>
                             <div class="date-tile">
                                 <span class="date-tile-label"><?= sanitize($event) ?></span>
                                 <span class="date-tile-value"><?= sanitize($date) ?></span>
@@ -168,7 +177,16 @@ ob_start();
                     <div class="detail-section">
                         <h3 class="detail-section-title"><i data-lucide="link"></i> <?= __('important_links') ?></h3>
                         <div class="links-cards-grid">
-                            <?php foreach ($importantLinks as $label => $linkUrl): ?>
+                            <?php foreach ($importantLinks as $key => $val): ?>
+                            <?php 
+                            if (is_array($val)) {
+                                $label = $val['label'] ?? $key;
+                                $linkUrl = $val['url'] ?? $val['link'] ?? '';
+                            } else {
+                                $label = $key;
+                                $linkUrl = $val;
+                            }
+                            ?>
                             <a href="<?= sanitize($linkUrl) ?>" target="_blank" rel="noopener" class="link-action-card">
                                 <div class="link-action-info">
                                     <span class="link-action-icon"><i data-lucide="external-link"></i></span>
@@ -235,7 +253,7 @@ ob_start();
                         foreach ($mostViewed as $mvPost): ?>
                         <a href="<?= url($mvPost['category_slug'] . '/' . $mvPost['slug']) ?>" class="sidebar-list-item">
                             <span class="sidebar-item-icon" style="background: <?= $mvPost['category_color'] ?? '#6366F1' ?>15; color: <?= $mvPost['category_color'] ?? '#6366F1' ?>;">
-                                <i data-lucide="<?= sanitize($mvPost['category_icon']) ?>"></i>
+                                <i data-lucide="<?= getCategoryIcon($mvPost['category_slug'], $mvPost['category_icon']) ?>"></i>
                             </span>
                             <span class="sidebar-item-text"><?= sanitize(truncate($lang->field($mvPost, 'title'), 50)) ?></span>
                             <span class="sidebar-item-views"><?= formatNumber($mvPost['views']) ?></span>

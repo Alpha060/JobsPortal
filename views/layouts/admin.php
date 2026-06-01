@@ -16,7 +16,7 @@ $postStats = $postModel->getStats();
 <html lang="<?= $lang->current() ?>">
 <head>
     <script>
-        if (localStorage.getItem('theme') === 'light') {
+        if (localStorage.getItem('theme') !== 'dark') {
             document.documentElement.classList.add('light-mode');
         }
         const APP_URL = "<?= url('/') ?>";

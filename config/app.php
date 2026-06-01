@@ -21,7 +21,25 @@ $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https'
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost:8000';
 $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
 
-define('BASE_URL', getenv('APP_URL') ?: ($protocol . '://' . $host . $basePath));
+$detectedUrl = $protocol . '://' . $host . $basePath;
+$configuredUrl = get_env_config('APP_URL');
+
+if ($configuredUrl) {
+    // Parse hosts to see if they match. If they don't match (e.g., localhost configured but staging accessed),
+    // fallback to the detected URL to prevent broken assets/CSS.
+    $configuredHost = parse_url($configuredUrl, PHP_URL_HOST);
+    $currentHost = parse_url($detectedUrl, PHP_URL_HOST);
+    
+    if ($configuredHost !== $currentHost) {
+        $baseUrl = $detectedUrl;
+    } else {
+        $baseUrl = $configuredUrl;
+    }
+} else {
+    $baseUrl = $detectedUrl;
+}
+
+define('BASE_URL', $baseUrl);
 define('ASSETS_URL', BASE_URL . '/assets');
 define('UPLOADS_URL', BASE_URL . '/uploads');
 

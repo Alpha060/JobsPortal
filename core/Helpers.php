@@ -246,3 +246,23 @@ function triggerRealtimeUpdate(): void
     }
     file_put_contents($filePath, time());
 }
+
+/**
+ * Map a category slug or custom icon to a valid Lucide icon name
+ */
+function getCategoryIcon(?string $slug, ?string $customIcon = null): string
+{
+    if ($customIcon && preg_match('/^[a-z0-9-]+$/', $customIcon)) {
+        return $customIcon;
+    }
+
+    $icons = [
+        'latest-jobs' => 'briefcase',
+        'results'     => 'award',
+        'admit-card'  => 'ticket',
+        'answer-key'  => 'key-round',
+        'syllabus'    => 'book-open',
+        'admission'   => 'graduation-cap'
+    ];
+    return $icons[$slug] ?? 'briefcase';
+}

@@ -71,10 +71,13 @@ function initThemeToggle() {
     const toggle = document.getElementById('themeToggle');
     if (!toggle) return;
 
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    if (savedTheme === 'light') {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    if (savedTheme !== 'dark') {
         document.documentElement.classList.add('light-mode');
         updateThemeIcons(true);
+    } else {
+        document.documentElement.classList.remove('light-mode');
+        updateThemeIcons(false);
     }
 
     toggle.addEventListener('click', () => {
